@@ -1,2 +1,2 @@
-# openPaasPaastaPortalApiV2
+# PAAS-TA-PORTAL-API-V2
 v2.0
