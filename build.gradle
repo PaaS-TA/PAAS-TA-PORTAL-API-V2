@@ -1,0 +1,88 @@
+buildscript {
+    ext {
+        springBootVersion = '1.3.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        //sonarqube
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+        //sonarqube
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'spring-boot'
+apply plugin: "io.spring.dependency-management"
+
+//war file, sonarqube project version
+version '1.0'
+
+war {
+    baseName = 'paasta-portal-api-v2'
+    version "$version"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repo.spring.io/release' }
+    maven { url 'http://repo.spring.io/snapshot' }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-netflix:1.0.7.RELEASE'
+    }
+}
+
+dependencies {
+    // eureka
+    compile('org.springframework.cloud:spring-cloud-starter-eureka'){
+        exclude group: 'io.netty'
+    }
+
+    // spring security
+    compile('org.springframework.boot:spring-boot-starter-security')
+
+    // datasource
+    compile ('org.springframework.boot:spring-boot-starter-jdbc')
+    compile ('org.postgresql:postgresql')
+    compile ('mysql:mysql-connector-java:5.0.8')
+    compile ('org.mybatis:mybatis-spring:1.2.4')
+    compile ('org.mybatis:mybatis:3.3.1')
+    compile ('org.flywaydb:flyway-core:4.0.3')
+
+    //glusterFS
+    compile ('org.javaswift:joss:0.9.12')
+
+    // CloudFoundry
+    compile 'org.cloudfoundry:cloudfoundry-client-reactor:2.1.0.RELEASE'
+    compile 'org.cloudfoundry:cloudfoundry-operations:2.1.0.RELEASE'
+    compile 'io.projectreactor:reactor-core:3.0.4.RELEASE'
+    compile 'io.projectreactor.ipc:reactor-netty:0.6.0.RELEASE'
+
+    // jackson.annotate
+    compile ('org.codehaus.jackson:jackson-core-asl:1.9.13')
+
+    // scim
+    compile ('org.cloudfoundry.identity:cloudfoundry-identity-scim:2.7.4'){
+        exclude group: 'org.slf4j'
+    }
+
+    // test
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.4.1.RELEASE'
+
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+
+

@@ -1,0 +1,65 @@
+# Spring properties
+spring:
+  application:
+     name: portal-api-v2  # Service registers under this name
+# HTTP Server
+server:
+  port: ${PORT:3333}   # HTTP (Tomcat) port
+
+# CloudFoundry API Url
+# CloudFoundry Login information
+cf:
+  apiurl: https://api.115.68.46.186.xip.io
+  sslSkipValidation: true
+  clientId: admin
+  clientSecret: admin-secret
+  username: admin
+  password: '!paas_ta202'
+
+---
+spring:
+  profiles: local
+  security:
+    username: admin
+    password: openpaasta
+datasource:
+  cc:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5524/ccdb
+    username: ccadmin
+    password: admin
+  portal:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5524/portaldb
+    username: portaladmin
+    password: admin
+  uaa:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5524/uaadb
+    username: uaaadmin
+    password: admin
+multipart:
+  maxFileSize: 1000Mb
+  maxRequestSize: 1000Mb
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:2221/eureka/
+logging:
+  level:
+    org.openpaas.paasta.portal.api.mapper: INFO
+
+
+multipart:
+  maxFileSize: 1000Mb
+  maxRequestSize: 1000Mb
+eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+
