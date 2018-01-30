@@ -6,7 +6,6 @@ import org.cloudfoundry.reactor.TokenProvider;
 import org.cloudfoundry.reactor.doppler.ReactorDopplerClient;
 import org.openpaas.paasta.portal.api.model.App;
 import org.openpaas.paasta.portal.api.service.AppService;
-import org.openpaas.paasta.portal.api.service.OrganizationService;
 import org.openpaas.paasta.portal.api.util.CfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +34,7 @@ public class AppController extends BaseController {
 
     @Autowired
     AppService appService;
-    @Autowired
-    OrganizationService organizationService;
+
 
     /**
      * 앱 최근 로그
