@@ -63,12 +63,8 @@ dependencies {
     //glusterFS
     compile ('org.javaswift:joss:0.9.12')
 
-    // CloudFoundry
-    compile 'org.cloudfoundry:cloudfoundry-client-reactor:2.1.0.RELEASE'
-    compile 'org.cloudfoundry:cloudfoundry-operations:2.1.0.RELEASE'
-    compile 'io.projectreactor:reactor-core:3.0.4.RELEASE'
-    compile 'io.projectreactor.ipc:reactor-netty:0.6.0.RELEASE'
-
+    // CloudFoundry    
+    compile group: 'org.cloudfoundry', name: 'cloudfoundry-client', version: '2.24.0.RELEASE'
     // jackson.annotate
     compile ('org.codehaus.jackson:jackson-core-asl:1.9.13')
 
